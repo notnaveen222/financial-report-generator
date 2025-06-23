@@ -39,11 +39,14 @@ function App() {
     };
     console.log(payload);
     try {
-      const response = await fetch("http://localhost:8000/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "https://financial-report-generator-backend.vercel.app/generate",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
