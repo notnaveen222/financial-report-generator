@@ -1,5 +1,5 @@
 from openpyxl.utils import get_column_letter
-from sheet_utils.styles import headingGreenfill, white_font, bold_font, white_bold_font, black_border, center_align
+from .styles import headingGreenfill, white_font, bold_font, white_bold_font, black_border, center_align
 
 def build_ssa_sheet(wb, data):
     table_data = data["data"]

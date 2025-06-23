@@ -1,5 +1,5 @@
 from openpyxl.utils import get_column_letter
-from sheet_utils.styles import headingGreenfill, white_font, bold_font, white_bold_font, black_border, center_align
+from .styles import headingGreenfill, white_font, bold_font, white_bold_font, black_border, center_align
 
 def build_ssc2_sheet(wb, data, data2):
     ssc2_sheet = wb.create_sheet("SS-C2")

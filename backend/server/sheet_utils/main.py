@@ -1,5 +1,4 @@
 # main.py
-
 from openpyxl import Workbook
 from sheet_utils.ss_a import build_ssa_sheet
 from sheet_utils.ss_b import build_ssb_sheet
@@ -7,8 +6,15 @@ from sheet_utils.ss_c import build_ssc_sheet
 from sheet_utils.ss_c1 import build_ssc1_sheet
 from sheet_utils.ss_c2 import build_ssc2_sheet
 from sheet_utils.ss_d import build_ssd_sheet
-from sheet_utils.styles import headingGreenfill, white_bold_font, bold_font, center_align, black_border
+from sheet_utils.styles import (
+    headingGreenfill,
+    white_bold_font,
+    bold_font,
+    center_align,
+    black_border
+)
 from openpyxl.styles import Alignment
+
 
 
 def generate_excel(payload: dict) -> str:

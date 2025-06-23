@@ -6,13 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Dict, List, Any
-import sys
-import os
 
-# Make sure Python can find main.py
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from main import generate_excel
+from sheet_utils.main import generate_excel
 
 app = FastAPI()
 
@@ -79,6 +74,13 @@ class Payload(BaseModel):
     preOperativeExpenseData: WithoutUnits
     msg: str
 
+
+
+@app.get("/")
+def root():
+    return {
+        "message": "Welcome to root backend dir"
+    }
 
 @app.post("/generate-report")
 def generate_report(data: DataModel):
