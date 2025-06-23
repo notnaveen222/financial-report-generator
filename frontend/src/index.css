@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+.font-inter {
+  font-family: "Inter";
+}
+
+* {
+  font-family: "Inter";
+}
+*::selection {
+  background: white;
+  color: black;
+}
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield;
+}
+
+body {
+  background-color: #0a0a0a;
+}
