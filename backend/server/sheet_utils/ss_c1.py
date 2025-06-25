@@ -61,4 +61,4 @@ def build_ssc1_sheet(wb, data):
         for cell in row:
             cell.border = black_border
     
-    return overallTotal
+    return round(overallTotal, 2)

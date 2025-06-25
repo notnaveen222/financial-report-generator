@@ -8,7 +8,9 @@ import FurnitureSection from "./components/FurnitureSection/FurnitureSection";
 import ElectricalSection from "./components/Electrical&OtherAssetsSection/ElectricalSection";
 import OtherAssetsSection from "./components/Electrical&OtherAssetsSection/OtherAssetsSection";
 import PreOperativeSection from "./components/PreOperativeSection/PreOperativeSection";
-
+import TLCSection from "./components/TermLoanComputationSection/TLCSection";
+import ConstructionInterest from "./components/ConstructionInterest/ConstructionInterest";
+import EstimatedRevenueSection from "./components/EstimatedRevenue/ERSection";
 function App() {
   const {
     landData,
@@ -25,6 +27,12 @@ function App() {
     setOtherAssetsData,
     preOperativeExpenseData,
     setPreOperativeExpenseData,
+    percentageContribution,
+    setPercentageContribution,
+    constructionPeriodData,
+    setConstructionPeriodData,
+    estimatedRevenueData,
+    setEstimatedRevenueData,
   } = useStateForm();
   const handleTempSubmit = async () => {
     const payload = {
@@ -35,18 +43,18 @@ function App() {
       electricData: electricData,
       otherAssetsData: otherAssetsData,
       preOperativeExpenseData: preOperativeExpenseData,
+      termLoanPercentage: percentageContribution,
+      constructionPeriodData: constructionPeriodData,
+      estimatedRevenueData: estimatedRevenueData,
       msg: "payload",
     };
     console.log(payload);
     try {
-      const response = await fetch(
-        "https://financial-report-generator-backend.vercel.app/generate",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch("http://localhost:8000/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -60,64 +68,6 @@ function App() {
       console.error("Error generating report:", error);
     }
   };
-  // const handleDataSubmit = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:8000/generate-report", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(payload),
-  //     });
-
-  //     const blob = await response.blob();
-  //     const url = window.URL.createObjectURL(blob);
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.setAttribute("download", "final_report.xlsx");
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     link.remove();
-  //   } catch (error) {
-  //     console.error("Error generating report:", error);
-  //   }
-  // };
-  // const formatTriple = (data) =>
-  //   data.map((item) => [
-  //     item.particulars,
-  //     parseFloat(item.area),
-  //     parseFloat(item.cost),
-  //   ]);
-
-  // const formatDouble = (data) =>
-  //   data.map((item) => [item.particulars, parseFloat(item.cost)]);
-  // const payload = {
-  //   ssa_data: formatTriple(landData.data),
-  //   ssb_data: formatTriple(buildingData.data),
-  //   ssc_data: formatDouble(equipmentData.data),
-  //   ssc1_data: formatDouble(furnitureData.data),
-  //   ssc2_data: formatDouble(electricData.data),
-  //   ssc3_data: formatDouble(otherAssetsData.data),
-  //   ssd_data: formatDouble(preOperativeExpenseData.data),
-  // };
-  // const handleSubmit = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:8000/generate-report", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(payload),
-  //     });
-
-  //     const blob = await response.blob();
-  //     const url = window.URL.createObjectURL(blob);
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.setAttribute("download", "final_report.xlsx");
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     link.remove();
-  //   } catch (error) {
-  //     console.error("Error generating report:", error);
-  //   }
-  // };
 
   return (
     <>
@@ -151,6 +101,18 @@ function App() {
           preOperativeExpenseData={preOperativeExpenseData}
           setPreOperativeExpenseData={setPreOperativeExpenseData}
         />
+        <TLCSection
+          percentageContribution={percentageContribution}
+          setPercentageContribution={setPercentageContribution}
+        />
+        <ConstructionInterest
+          constructionPeriodData={constructionPeriodData}
+          setConstructionPeriodData={setConstructionPeriodData}
+        />
+        <EstimatedRevenueSection
+          estimatedRevenueData={estimatedRevenueData}
+          setEstimatedRevenueData={setEstimatedRevenueData}
+        />
         <div className="flex w-full justify-end">
           <button
             className="cursor-pointer hover:bg-white hover:text-black transition-all duration-150 ease-in border border-white px-3 py-2 rounded-lg mr-5 mb-10"
@@ -166,15 +128,73 @@ function App() {
 
 export default App;
 
-function Input() {
-  return (
-    <input
-      className=" no-spinner border rounded-lg h-10 px-3 border-white focus:ring-1 transition-all duration-150 ring-0 focus:ring-white focus:ring-offset-1 focus:outline-none my-2 mx-2"
-      placeholder={placeholder}
-      type={inputType}
-      value={value}
-      step="0.01"
-      onChange={(e) => onChange(field, e.target.value)}
-    />
-  );
-}
+// function Input() {
+//   return (
+//     <input
+//       className=" no-spinner border rounded-lg h-10 px-3 border-white focus:ring-1 transition-all duration-150 ring-0 focus:ring-white focus:ring-offset-1 focus:outline-none my-2 mx-2"
+//       placeholder={placeholder}
+//       type={inputType}
+//       value={value}
+//       step="0.01"
+//       onChange={(e) => onChange(field, e.target.value)}
+//     />
+//   );
+// }
+// const handleDataSubmit = async () => {
+//   try {
+//     const response = await fetch("http://localhost:8000/generate-report", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(payload),
+//     });
+
+//     const blob = await response.blob();
+//     const url = window.URL.createObjectURL(blob);
+//     const link = document.createElement("a");
+//     link.href = url;
+//     link.setAttribute("download", "final_report.xlsx");
+//     document.body.appendChild(link);
+//     link.click();
+//     link.remove();
+//   } catch (error) {
+//     console.error("Error generating report:", error);
+//   }
+// };
+// const formatTriple = (data) =>
+//   data.map((item) => [
+//     item.particulars,
+//     parseFloat(item.area),
+//     parseFloat(item.cost),
+//   ]);
+
+// const formatDouble = (data) =>
+//   data.map((item) => [item.particulars, parseFloat(item.cost)]);
+// const payload = {
+//   ssa_data: formatTriple(landData.data),
+//   ssb_data: formatTriple(buildingData.data),
+//   ssc_data: formatDouble(equipmentData.data),
+//   ssc1_data: formatDouble(furnitureData.data),
+//   ssc2_data: formatDouble(electricData.data),
+//   ssc3_data: formatDouble(otherAssetsData.data),
+//   ssd_data: formatDouble(preOperativeExpenseData.data),
+// };
+// const handleSubmit = async () => {
+//   try {
+//     const response = await fetch("http://localhost:8000/generate-report", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(payload),
+//     });
+
+//     const blob = await response.blob();
+//     const url = window.URL.createObjectURL(blob);
+//     const link = document.createElement("a");
+//     link.href = url;
+//     link.setAttribute("download", "final_report.xlsx");
+//     document.body.appendChild(link);
+//     link.click();
+//     link.remove();
+//   } catch (error) {
+//     console.error("Error generating report:", error);
+//   }
+// };

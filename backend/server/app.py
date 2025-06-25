@@ -53,6 +53,18 @@ class ItemWithoutArea(BaseModel):
     particulars: str
     cost: str
 
+class constructionPeriodDataModel(BaseModel):
+    interest: str
+    cod: str
+    withdrawnPercentage: Dict[str, Dict[str, str]]
+
+class percentageContributions(BaseModel):
+    particulars: str
+    percent: str
+
+class TermLoanContributionModel(BaseModel):
+    data: List[percentageContributions]
+
 class Units(BaseModel):
     area: str
     cost: str
@@ -72,6 +84,8 @@ class Payload(BaseModel):
     electricData: WithoutUnits
     otherAssetsData: WithoutUnits
     preOperativeExpenseData: WithoutUnits
+    termLoanPercentage: TermLoanContributionModel
+    constructionPeriodData: constructionPeriodDataModel
     msg: str
 
 
@@ -95,8 +109,8 @@ def generate_report(data: DataModel):
 
 @app.post("/generate")
 def gen_rep(payload: Payload):
-
     payload_dict = payload.dict()
+    print(payload_dict)
     file_path = generate_excel(payload_dict)
     #file_path = generate_excel(landData["data"])  # or format it however needed
     return FileResponse(

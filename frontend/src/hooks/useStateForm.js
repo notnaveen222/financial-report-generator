@@ -67,6 +67,56 @@ export default function useStateForm() {
       },
     ],
   });
+  // Term Loan Computation Data
+  const [percentageContribution, setPercentageContribution] = useState({
+    data: [
+      {
+        particulars: "Land",
+        percent: "",
+      },
+      {
+        particulars: "Building",
+        percent: "",
+      },
+      {
+        particulars: "Plant & Equipments",
+        percent: "",
+      },
+      {
+        particulars: "Furniture & Fittings",
+        percent: "",
+      },
+      {
+        particulars: "Electrical Fittings",
+        percent: "",
+      },
+      {
+        particulars: "Other Fixed Assets",
+        percent: "",
+      },
+      {
+        particulars: "Preoperative Assets",
+        percent: "",
+      },
+    ],
+  });
+  const [constructionPeriodData, setConstructionPeriodData] = useState({
+    interest: "",
+    cod: "",
+    withdrawnPecentage: {},
+  });
+
+  const [estimatedRevenueData, setEstimatedRevenueData] = useState({
+    data: [
+      {
+        //derived data has operations + derived from inside the dict
+        name: "",
+        uom: "",
+        value: "",
+        isDerived: false,
+      },
+    ],
+  });
 
   return {
     landData,
@@ -83,5 +133,11 @@ export default function useStateForm() {
     setOtherAssetsData,
     preOperativeExpenseData,
     setPreOperativeExpenseData,
+    percentageContribution,
+    setPercentageContribution,
+    constructionPeriodData,
+    setConstructionPeriodData,
+    estimatedRevenueData,
+    setEstimatedRevenueData,
   };
 }
