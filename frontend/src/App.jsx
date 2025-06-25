@@ -48,13 +48,18 @@ function App() {
       estimatedRevenueData: estimatedRevenueData,
       msg: "payload",
     };
-    console.log(payload);
+    //console.log(payload);
     try {
-      const response = await fetch("http://localhost:8000/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "https://financial-report-generator-backend.onrender.com/generate",
+        {
+          //online: https://financial-report-generator-backend.onrender.com/generate
+          //local: http://localhost:8000/generate
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
